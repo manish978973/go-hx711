@@ -15,7 +15,7 @@ import (
 
 // HostInit calls periph.io host.Init(). This needs to be done before Hx711 can be used.
 func HostInit() error {
-	_, err := host.Init()
+	_, err := host.Init()   // Periph.state isnt used. Hence we use _ since we would require only error
 	return err
 }
 
@@ -25,12 +25,12 @@ func HostInit() error {
 func NewHx711(clockPinName string, dataPinName string) (*Hx711, error) {
 	hx711 := &Hx711{numEndPulses: 1}
 
-	hx711.clockPin = gpioreg.ByName(clockPinName)
+	hx711.clockPin = gpioreg.ByName(clockPinName)  // returns physical name of the GPIO pin
 	if hx711.clockPin == nil {
 		return nil, fmt.Errorf("clockPin is nill")
 	}
 
-	hx711.dataPin = gpioreg.ByName(dataPinName)
+	hx711.dataPin = gpioreg.ByName(dataPinName)  // returns physical name of GPIO Data pin
 	if hx711.dataPin == nil {
 		return nil, fmt.Errorf("dataPin is nill")
 	}
